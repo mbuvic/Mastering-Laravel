@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\job;
+use App\Models\Job;
+
 
 Route::get('/', function () {
 
