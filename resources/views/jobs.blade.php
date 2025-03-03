@@ -7,12 +7,17 @@
     <p>No jobs found.</p>
 @endif
 
-@foreach ($jobs as $job)
-    <div>
-        <li>
-            <strong><a href="/jobs/{{ $job['id'] }}" class="hover:underline text-blue-600">{{ $job['title'] }}</a></strong>: Location - {{ $job['location'] }}, Salary - {{ $job['salary'] }} per month.
-        </li>
-    </div>
-@endforeach
+<div class="space-y-4">
+    @foreach ($jobs as $job)
+        <a href="/jobs/{{ $job['id'] }}" class="block px-4 py-6 border border-gray-200 rounded-lg">
+            <div class="font-bold text-blue-500 text-sm">{{ $job->employer->name }}</div>
+            <div>
+                <strong>{{ $job['title'] ?? 'N/A' }}</strong>:  
+                Location - {{ $job['location'] ?? 'Unknown' }},  
+                Salary - {{ isset($job['salary']) ? $job['salary'] : 'Not specified' }} per month.
+            </div>
+        </a>
+    @endforeach
+</div>
 
 </x-layout>

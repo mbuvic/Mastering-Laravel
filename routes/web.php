@@ -25,5 +25,8 @@ Route::get('/jobs/{sjob}', function ($sjob) {
 });
 
 Route::get('/jobs', function () {
-    return view('jobs', ['jobs' => job::all()]);
+
+    // $jobs = Job::all();
+    $jobs = job::with('employer')->get();
+    return view('jobs', ['jobs' => $jobs]);
 });
