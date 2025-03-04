@@ -9,4 +9,6 @@
         </li>
     </div>
 
+    <x-button href="/jobs">Edit</x-button>
+
 </x-layout>
