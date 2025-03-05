@@ -16,13 +16,11 @@ class JobsController extends Controller
         return view('jobs.create');
     }
 
-    public function store() {
-        //pending validation
-        
+    public function store() {       
         request()->validate([
             'title' => ['required', 'min:3'],
             'location' => ['required'],
-            'salary' => ['required'],
+            'salary' => ['required', 'min:3'],
         ]);
     
         Job::create([
@@ -48,10 +46,9 @@ class JobsController extends Controller
         request()->validate([
             'title' => ['required', 'min:3'],
             'location' => ['required'],
-            'salary' => ['required'],
+            'salary' => ['required', 'min:3'],
         ]);
     
-        //$job = job::findOrFail($job);
         $job->update([
             'slug' => str()->slug(request('title')),
             'title' => request('title'),
