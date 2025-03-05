@@ -10,6 +10,8 @@
         </li>
     </div>
 
-    <x-button class="mt-6" href="/jobs/{{ $job->id }}/edit">Edit</x-button>
+    @can('edit', $job)
+        <x-button class="mt-6" href="/jobs/{{ $job->id }}/edit">Edit</x-button>
+    @endcan
 
 </x-layout>

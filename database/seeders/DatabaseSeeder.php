@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        Job::factory(1000)->create();
+        Job::factory(10)->create();
     }
 }
