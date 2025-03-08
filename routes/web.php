@@ -12,14 +12,6 @@ Route::view('/home', 'home');
 Route::view('/about', 'about');
 Route::view('/contact', 'contact');
 
-Route::get('/email', function () {
-    Mail::to('XK7k3@example.com')->send(
-        new \App\Mail\JobPosted()
-    );
-
-    return 'email sent';
-});
-
 //jobs
 Route::get('/jobs', [JobsController::class, 'index']);
 Route::get('/jobs/create', [JobsController::class, 'create'])->middleware('auth');
