@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\JobPosted;
+use App\Models\Employer;
 use App\Models\Job;
-
+use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class JobsController extends Controller
 {
@@ -18,23 +21,42 @@ class JobsController extends Controller
         return view('jobs.create');
     }
 
-    public function store() {       
+    public function store() {
         request()->validate([
             'title' => ['required', 'min:3'],
             'location' => ['required'],
             'salary' => ['required', 'min:3'],
         ]);
+
+        if (request('title') == 'test') {
+            return redirect()->back()->withErrors(['title' => 'Title cannot be test'])->withInput();
+        }        
     
-        Job::create([
-            'employer_id' => 301,
-            'slug' => str()->slug(request('title')),
-            'title' => request('title'),
-            'location' => request('location'),
-            'salary' => request('salary'),
+        $user = Auth::user();
+    
+        // Fetch employer associated with the logged-in user
+        $employer = Employer::where('user_id', $user->id)->first();
+        
+        if (!$employer) {
+            // Handle the error (for example, redirect back with an error message)
+            return redirect()->back()->withErrors(['title' => 'Employer record not found.'])->withInput();
+        }
+    
+        $job = Job::create([
+            'employer_id' => $employer->id,
+            'slug'        => str()->slug(request('title')),
+            'title'       => request('title'),
+            'location'    => request('location'),
+            'salary'      => request('salary'),
         ]);
+
+        Mail::to($job->employer->user)->send(
+            new JobPosted($job)
+        );
     
         return redirect('/jobs');
     }
+    
 
     public function show(Job $job) {
         return view('jobs.show', ['job' => $job]);

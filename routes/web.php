@@ -3,6 +3,7 @@
 use App\Http\Controllers\JobsController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 
@@ -11,11 +12,20 @@ Route::view('/home', 'home');
 Route::view('/about', 'about');
 Route::view('/contact', 'contact');
 
+Route::get('/email', function () {
+    Mail::to('XK7k3@example.com')->send(
+        new \App\Mail\JobPosted()
+    );
+
+    return 'email sent';
+});
+
 //jobs
 Route::get('/jobs', [JobsController::class, 'index']);
-Route::get('/jobs/{job}', [JobsController::class, 'show']);
-Route::get('/jobs/create', [JobsController::class, 'create']);
+Route::get('/jobs/create', [JobsController::class, 'create'])->middleware('auth');
 Route::post('/jobs', [JobsController::class, 'store'])->middleware('auth');
+
+Route::get('/jobs/{job}', [JobsController::class, 'show']);
 
 Route::get('/jobs/{job}/edit', [JobsController::class, 'edit'])
     ->middleware('auth')
