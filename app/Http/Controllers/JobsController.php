@@ -31,11 +31,9 @@ class JobsController extends Controller
         if (request('title') == 'test') {
             return redirect()->back()->withErrors(['title' => 'Title cannot be test'])->withInput();
         }        
-    
-        $user = Auth::user();
-    
+        
         // Fetch employer associated with the logged-in user
-        $employer = Employer::where('user_id', $user->id)->first();
+        $employer = Employer::where('user_id', Auth::user()->id)->first();
         
         if (!$employer) {
             // Handle the error (for example, redirect back with an error message)

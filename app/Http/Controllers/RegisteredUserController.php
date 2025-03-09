@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\Password;
 
 class RegisteredUserController extends Controller
@@ -27,6 +29,11 @@ class RegisteredUserController extends Controller
 
         //Create Session
         Auth::login($user);
+
+        //Send Email
+        Mail::to($user)->send(
+            new NewUser($user)
+        );
 
         //Redirect
         return redirect('/jobs');

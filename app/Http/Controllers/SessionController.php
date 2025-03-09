@@ -9,7 +9,11 @@ use Illuminate\Validation\ValidationException;
 class SessionController extends Controller
 {
     public function create() {
-        return view('auth.login');
+        if (Auth::guest()) {
+            return view('auth.login');
+        } else {
+            return redirect('/');
+        }
     }
 
     public function store() {
