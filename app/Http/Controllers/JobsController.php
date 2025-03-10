@@ -48,7 +48,7 @@ class JobsController extends Controller
             'salary'      => request('salary'),
         ]);
 
-        Mail::to($job->employer->user)->send(
+        Mail::to($job->employer->user)->queue(
             new JobPosted($job)
         );
     
