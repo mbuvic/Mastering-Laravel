@@ -1,0 +1,33 @@
+digraph INFRA {
+  node [ color = "black", fillcolor = "#E6E6E6", height =1, style = "filled,bold,rounded", fontname = "Arial" ];
+  "jobs" [ label = "jobs
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "job_batches" [ label = "job_batches
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "failed_jobs" [ label = "failed_jobs
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "cache" [ label = "cache
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "cache_locks" [ label = "cache_locks
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "users" [ label = "users
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "password_reset_tokens" [ label = "password_reset_tokens
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "sessions" [ label = "sessions
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "tags" [ label = "tags
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "job_tag" [ label = "job_tag
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "employers" [ label = "employers
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "posts" [ label = "posts
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "job_listings" [ label = "job_listings
+(AWS::RDS::DBTable)", shape =cylinder, fillcolor = "#FFCFB3" ];
+  "job_tag" -> "jobs";
+  "job_tag" -> "tags";
+  "employers" -> "users";
+  "job_listings" -> "employers";
+}

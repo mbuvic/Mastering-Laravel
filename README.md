@@ -1,66 +1,175 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Job Board Platform - A Laravel-based Job Listing and Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+The Job Board Platform is a modern web application built with Laravel that enables employers to post, manage, and track job listings while providing job seekers with an intuitive interface to browse available positions. The platform features user authentication, job management capabilities, and a responsive design powered by Tailwind CSS.
 
-## About Laravel
+The application provides comprehensive job listing management with features including:
+- User registration and authentication system with role-based access control
+- Job posting functionality with title, location, and salary information
+- Tag-based job categorization for improved searchability
+- Email notifications for new job postings and user registrations
+- Responsive interface that works across desktop and mobile devices
+- Pagination support for job listings
+- Role-based permissions for job management
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Repository Structure
+```
+.
+├── app/                          # Core application code
+│   ├── Http/Controllers/         # Request handling logic
+│   ├── Mail/                     # Email notification templates
+│   ├── Models/                   # Eloquent models for data entities
+│   └── Policies/                 # Authorization policies
+├── database/                     # Database configuration and migrations
+│   ├── factories/                # Model factories for testing
+│   ├── migrations/               # Database structure definitions
+│   └── seeders/                 # Sample data generators
+├── resources/                    # Frontend assets and views
+│   ├── css/                     # Stylesheets
+│   ├── js/                      # JavaScript files
+│   └── views/                   # Blade template files
+├── routes/                      # Application routes
+│   ├── web.php                  # Web routes definition
+│   └── console.php              # Console commands
+└── config/                      # Configuration files
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Usage Instructions
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Prerequisites
+- PHP >= 8.2
+- Composer
+- Node.js and npm
+- MySQL or PostgreSQL database
+- Web server (Apache/Nginx)
 
-## Learning Laravel
+### Installation
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd job-board-platform
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. Install PHP dependencies:
+```bash
+composer install
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. Install frontend dependencies:
+```bash
+npm install
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. Configure environment:
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Laravel Sponsors
+5. Configure database in .env file:
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+6. Run migrations:
+```bash
+php artisan migrate
+```
 
-### Premium Partners
+### Quick Start
+1. Start the development server:
+```bash
+php artisan serve
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. Start the Vite development server:
+```bash
+npm run dev
+```
 
-## Contributing
+3. Visit http://localhost:8000 in your browser
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### More Detailed Examples
 
-## Code of Conduct
+#### Creating a Job Listing
+```php
+// As an authenticated employer
+POST /jobs
+{
+    "title": "Senior Developer",
+    "location": "Remote - United States",
+    "salary": "120000"
+}
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Browsing Jobs
+```php
+// View all jobs
+GET /jobs
 
-## Security Vulnerabilities
+// View specific job
+GET /jobs/{id}
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Troubleshooting
 
-## License
+#### Common Issues
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Database Connection Issues
+```
+SQLSTATE[HY000] [2002] Connection refused
+```
+- Verify database credentials in .env
+- Ensure database service is running
+- Check database port availability
+
+2. Storage Permission Issues
+```
+The stream or file "storage/logs/laravel.log" could not be opened
+```
+Solution:
+```bash
+chmod -R 775 storage
+chmod -R 775 bootstrap/cache
+```
+
+## Data Flow
+
+The application follows a standard MVC architecture with additional service layers for business logic.
+
+```ascii
+[User/Browser] → [Routes] → [Controllers] → [Models]
+       ↑                                        ↓
+    [Views] ← [Response/Blade] ← [Database/Cache]
+```
+
+Key component interactions:
+1. Routes direct HTTP requests to appropriate controllers
+2. Controllers validate input and coordinate with models
+3. Models handle data persistence and relationships
+4. Views render data using Blade templates
+5. Mail notifications trigger on specific events
+6. Authentication middleware protects restricted routes
+7. Policies enforce user-specific permissions
+
+## Infrastructure
+
+![Infrastructure diagram](./docs/infra.svg)
+
+### Database Tables
+- `users`: Stores user account information
+- `employers`: Contains employer profile data
+- `job_listings`: Stores job posting information
+- `tags`: Manages job categorization tags
+- `cache`: Handles application caching
+- `sessions`: Manages user sessions
+- `failed_jobs`: Tracks failed queue jobs
+
+### Queue System
+- Uses database queue driver by default
+- Supports job batching and failure tracking
+- Configurable retry and timeout settings
